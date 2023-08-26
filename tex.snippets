@@ -15,24 +15,38 @@ endglobal
 snippet template "Basic template" b
 \documentclass[a4paper]{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage{amsmath, amssymb, amsthm}
-
-
-% figure support
-\usepackage{import}
-\usepackage{xifthen}
-\pdfminorversion=7
-\usepackage{pdfpages}
-\usepackage{transparent}
-\newcommand{\incfig}[1]{%
-	\def\svgwidth{\columnwidth}
-	\import{./figures/}{#1.pdf_tex}
-}
-
-\pdfsuppresswarningpagegroup=1
+% \usepackage{fontspec}
+% 	 % \setmainfont{TeX Gyre Termes}
+% 	 \setmonofont{JetBrains Mono}[Scale = MatchLowercase]
+%  	 % https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+\usepackage{hyperref}
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage[usenames,dvipsnames]{xcolor}
+	\definecolor{link-color}{HTML}{3584E3}
+\usepackage{url}
+\usepackage{hyperref}
+	\hypersetup{
+		pdfauthor={Aditya Singh},
+		pdftitle={},
+		pdfsubject={},
+		pdfproducer={},
+		hidelinks,
+		colorlinks,
+		linkcolor=link-color,
+		citecolor=link-color,
+		urlcolor=link-color,
+		anchorcolor=link-color
+	}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{parskip}
+\usepackage{caption}
+\usepackage{upgreek}
+\usepackage{booktabs}
+\usepackage{tikz}
 
 \begin{document}
 	$0
@@ -73,16 +87,16 @@ snippet ... "ldots" iA
 \ldots
 endsnippet
 
-# snippet table "Table environment" b
-# \begin{table}[${1:htpb}]
-# 	\centering
-# 	\caption{${2:caption}}
-# 	\label{tab:${3:label}}
-# 	\begin{tabular}{${5:c}}
-# 	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
-# 	\end{tabular}
-# \end{table}
-# endsnippet
+snippet tablef "Table environment" b
+\begin{table}[${1:htpb}]
+	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+	\begin{tabular}{${5:c}}
+	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
+	\end{tabular}
+\end{table}
+endsnippet
 
 snippet table "tabular environment" b
 \begin{tabular}{${1:l l}}
@@ -760,19 +774,6 @@ snippet "\<(.*?), (.*?)\>" "inner product" riA
 \langle `!p snip.rv = match.group(1)`, `!p snip.rv = match.group(2)` \rangle
 endsnippet
 
-# Quantum Mechanics
-snippet "\<(.*?)\|" "bra" riA
-\bra{`!p snip.rv = match.group(1).replace('q', f'\psi').replace('f', f'\phi')`}
-endsnippet
-
-snippet "\|(.*?)\>" "ket" riA
-\ket{`!p snip.rv = match.group(1).replace('q', f'\psi').replace('f', f'\phi')`}
-endsnippet
-
-snippet "(.*)\\bra{(.*?)}([^\|]*?)\>" "braket" riA
-`!p snip.rv = match.group(1)`\braket{`!p snip.rv = match.group(2)`}{`!p snip.rv = match.group(3).replace('q', f'\psi').replace('f', f'\phi')`}
-endsnippet
-
 # context "math()"
 # snippet < "langle" iA
 # \langle 
@@ -1036,6 +1037,19 @@ endsnippet
 # context "math()"
 # snippet varphi "varphi" iA
 # \varphi
+# endsnippet
+
+# Quantum Mechanics
+# snippet "\<(.*?)\|" "bra" riA
+# \bra{`!p snip.rv = match.group(1).replace('q', f'\psi').replace('f', f'\phi')`}
+# endsnippet
+
+# snippet "\|(.*?)\>" "ket" riA
+# \ket{`!p snip.rv = match.group(1).replace('q', f'\psi').replace('f', f'\phi')`}
+# endsnippet
+
+# snippet "(.*)\\bra{(.*?)}([^\|]*?)\>" "braket" riA
+# `!p snip.rv = match.group(1)`\braket{`!p snip.rv = match.group(2)`}{`!p snip.rv = match.group(3).replace('q', f'\psi').replace('f', f'\phi')`}
 # endsnippet
 
 # context "math()"
