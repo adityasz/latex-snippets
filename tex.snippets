@@ -13,12 +13,15 @@ endglobal
 
 
 snippet template "Basic template" b
+%! TeX program = xelatex
 \documentclass[a4paper]{article}
 
 % \usepackage{fontspec}
 % 	 % \setmainfont{TeX Gyre Termes}
 % 	 \setmonofont{JetBrains Mono}[Scale = MatchLowercase]
 %  	 % https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 \usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -82,6 +85,7 @@ snippet bf "textbf{}" i
 \\textbf{$1}$0
 endsnippet
 
+context "math()"
 priority 100
 snippet ... "ldots" iA
 \ldots
@@ -135,10 +139,12 @@ snippet pac "Package" b
 \usepackage[${1:options}]{${2:package}}$0
 endsnippet
 
+context "math()"
 snippet => "implies" Ai
 \implies
 endsnippet
 
+context "math()"
 snippet =< "implied by" Ai
 \impliedby
 endsnippet
@@ -250,10 +256,12 @@ snip.rv = subprocess.check_output(['wolframscript', '-code', code])
 `
 endsnippet
 
+context "math()"
 snippet == "equals" iA
 &=$1 \\\\
 endsnippet
 
+context "math()"
 snippet != "equals" iA
 \neq
 endsnippet
@@ -268,45 +276,54 @@ snippet floor "floor" iA
 \left\lfloor $1 \right\rfloor$0
 endsnippet
 
+context "math()"
 snippet pmat "pmat" iA
 \begin{pmatrix} $1 \end{pmatrix}$0
 endsnippet
 
+context "math()"
 snippet bmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix}$0
 endsnippet
 
 context "math()"
 snippet () "left( right)" iA
-\left( ${1:${VISUAL}} \right)$0
+\left(${1:${VISUAL}}\right)$0
 endsnippet
 
+context "math()"
 snippet lr "left( right)" i
-\left( ${1:${VISUAL}} \right)$0
+\left(${1:${VISUAL}} \right)$0
 endsnippet
 
+context "math()"
 snippet lr( "left( right)" i
-\left( ${1:${VISUAL}} \right)$0
+\left(${1:${VISUAL}}\right)$0
 endsnippet
 
+context "math()"
 snippet lr| "left| right|" i
-\left| ${1:${VISUAL}} \right|$0
+\left|${1:${VISUAL}}\right|$0
 endsnippet
 
+context "math()"
 snippet lr{ "left\{ right\}" i
-\left\\{ ${1:${VISUAL}} \right\\}$0
+\left\\{${1:${VISUAL}}\right\\}$0
 endsnippet
 
+context "math()"
 snippet lrb "left\{ right\}" i
-\left\\{ ${1:${VISUAL}} \right\\}$0
+\left\\{${1:${VISUAL}}\right\\}$0
 endsnippet
 
+context "math()"
 snippet lr[ "left[ right]" i
-\left[ ${1:${VISUAL}} \right]$0
+\left[${1:${VISUAL}}\right]$0
 endsnippet
 
+context "math()"
 snippet lra "leftangle rightangle" iA
-\left<${1:${VISUAL}} \right>$0
+\left<${1:${VISUAL}}\right>$0
 endsnippet
 
 context "math()"
@@ -314,26 +331,32 @@ snippet conj "conjugate" iA
 \overline{$1}$0
 endsnippet
 
+context "math()"
 snippet sum "sum" w
 \sum_{${1:n=${2:1}}}^{${3:\infty}} ${4:a_n z^n}
 endsnippet
 
+context "math()"
 snippet taylor "taylor" w
 \sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
 
+context "math()"
 snippet lim "limit" w
 \lim_{${1:n} \to ${2:\infty}} 
 endsnippet
 
+context "math()"
 snippet limsup "limsup" w
 \limsup_{${1:n} \to ${2:\infty}} 
 endsnippet
 
+context "math()"
 snippet prod "product" w
 \prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}} $0
 endsnippet
 
+context "math()"
 snippet part "d/dx" w
 \frac{\partial ${1:V}}{\partial ${2:x}}$0
 endsnippet
@@ -363,14 +386,17 @@ snippet rd "to the ... power" iA
 ^{($1)}$0
 endsnippet
 
+context "math()"
 snippet __ "subscript" iA
 _{$1}$0
 endsnippet
 
+context "math()"
 snippet ^^ "superscript" iA
 ^{$1}$0
 endsnippet
 
+context "math()"
 snippet ooo "\infty" iA
 \infty
 endsnippet
@@ -390,7 +416,12 @@ snippet >= "geq" iA
 endsnippet
 
 context "math()"
-snippet EE "geq" iA
+snippet := "define" iA
+\coloneqq
+endsnippet
+
+context "math()"
+snippet EE "exists" iA
 \exists
 endsnippet
 
@@ -440,6 +471,7 @@ snippet xmm "x" iA
 x_{m}
 endsnippet
 
+context "math()"
 snippet R0+ "R0+" iA
 \\R_0^+
 endsnippet
@@ -471,6 +503,7 @@ snippet mcal "mathcal" iA
 \mathcal{$1}$0
 endsnippet
 
+context "math()"
 snippet lll "l" iA
 \ell
 endsnippet
@@ -509,7 +542,8 @@ endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+# snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|zeta|int)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -527,7 +561,7 @@ snippet <-> "leftrightarrow" iA
 endsnippet
 
 context "math()"
-snippet !> "mapsto" iA
+snippet |> "mapsto" iA
 \mapsto
 endsnippet
 
@@ -546,15 +580,18 @@ snippet \\\ "setminus" iA
 \setminus
 endsnippet
 
+context "math()"
 snippet >> ">>" iA
 \gg
 endsnippet
 
+context "math()"
 snippet << "<<" iA
 \ll
 endsnippet
 
 
+context "math()"
 snippet ~~ "~" iA
 \sim
 endsnippet
@@ -730,10 +767,12 @@ snippet "(\\?\w+)dot" "dot" ri
 \dot{`!p snip.rv=match.group(1)`}
 endsnippet
 
+context "math()"
 snippet "(\\?\w+)ddot" "ddot" riA
 \ddot{`!p snip.rv=match.group(1)`}
 endsnippet
 
+context "math()"
 snippet "(\\?\w+)dddot" "dddot" riA
 \dddot{`!p snip.rv=match.group(1)`}
 endsnippet
@@ -742,10 +781,12 @@ snippet letw "let omega" iA
 Let $\Omega \subset \C$ be open.
 endsnippet
 
+context "math()"
 snippet HH "H" iA
 \mathbb{H}
 endsnippet
 
+context "math()"
 snippet DD "D" iA
 \mathbb{D}
 endsnippet
@@ -758,9 +799,27 @@ endsnippet
 
 priority 100
 context "math()"
-snippet "(\\?\w+)(,\.|\.,)" "vector postfix" riA
+snippet "(\\?\w+)(,\.)" "boldsymbol" riA
+\boldsymbol{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 100
+context "math()"
+snippet "(\\?\w+)(\.,)" "vector postfix" riA
 \mathbf{`!p snip.rv=match.group(1)`}
 endsnippet
+
+# priority 100
+# context "math()"
+# snippet "(\\?\w+)(,\.|\.,)" "vector postfix" riA
+# \boldsymbol{`!p snip.rv=match.group(1)`}
+# endsnippet
+
+# priority 99
+# context "math()"
+# snippet "(\w+)(,\.|\.,)" "vector postfix" riA
+# \mathbf{`!p snip.rv=match.group(1)`}
+# endsnippet
 
 snippet fdvs "finite dimensional vector space" iA
 finite dimensional vector space
@@ -770,6 +829,7 @@ snippet fdips "finite dimensional inner product space" iA
 finite dimensional inner product space
 endsnippet
 
+context "math()"
 snippet "\<(.*?), (.*?)\>" "inner product" riA
 \langle `!p snip.rv = match.group(1)`, `!p snip.rv = match.group(2)` \rangle
 endsnippet
